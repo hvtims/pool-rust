@@ -4,3 +4,4 @@
 
 pub fn at_index(slice: &[String], index: usize) -> &str {
     return &slice[index]
+}
