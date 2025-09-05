@@ -5,12 +5,15 @@ pub fn nbr_function(c: i32) -> (i32, f64, f64) {
 pub fn str_function(a: String) -> (String, String) {
     let splited : Vec<_>= a.split(" ").collect();
     let mut ok = String::new();
-    for i in splited{
+    for (i , v) in splited.iter().enumerate(){
         let mut opp : f64;
-        opp = i.parse().unwrap();
+        opp = v.parse().unwrap();
         opp = opp.exp();
         ok += &opp.to_string();
-        ok+= " ";
+        if i != splited.len() - 1{
+            ok+= " ";
+
+        }
     }
     
     return (a , ok);

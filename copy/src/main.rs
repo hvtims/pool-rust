@@ -6,6 +6,6 @@ fn main() {
     let c = 0;
 
    // println!("{:?}", nbr_function(c));
-    println!("{:?}", vec_function(b));
-    //  println!("{:?}", str_function(a));
+  //  println!("{:?}", vec_function(b));
+      println!("{:?}", str_function(a));
 }
