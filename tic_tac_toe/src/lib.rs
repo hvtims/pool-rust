@@ -8,7 +8,7 @@ pub fn tic_tac_toe(table: [[char; 3]; 3]) -> String {
     "tie".to_string()
 }
 
-pub fn diagonals(player: char, table: [[char; 3]; 3]) -> bool {
+pub fn diagonxlals(player: char, table: [[char; 3]; 3]) -> bool {
     (table[0][0] == player && table[1][1] == player && table[2][2] == player) ||
         (table[0][2] == player && table[1][1] == player && table[2][0] == player)
 }
