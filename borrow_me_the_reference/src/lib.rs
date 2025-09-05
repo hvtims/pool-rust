@@ -20,6 +20,23 @@ pub fn delete_and_backspace(s: &mut String) {
     *s = result; 
 }
 
-
-// pub fn do_operations(v: &mut [String]) {
-// }
+pub fn do_operations(v: &mut [String]) {
+    for eq in v.iter_mut() {
+        let parts: Vec<&str> = eq.split_whitespace().collect();
+        
+        if parts.len() == 3 {
+            let left_operand: i32 = parts[0].parse().unwrap();
+            let operator = parts[1];
+            let right_operand: i32 = parts[2].parse().unwrap();
+            
+            let result = match operator {
+                "+" => left_operand + right_operand,
+                "-" => left_operand - right_operand,
+                _ => {
+                    continue;
+                }
+            };
+                        *eq = result.to_string();
+        }
+    }
+}
