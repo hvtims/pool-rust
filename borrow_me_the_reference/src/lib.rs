@@ -21,22 +21,27 @@ pub fn delete_and_backspace(s: &mut String) {
 }
 
 pub fn do_operations(v: &mut [String]) {
-    for eq in v.iter_mut() {
-        let parts: Vec<&str> = eq.split_whitespace().collect();
-        
-        if parts.len() == 3 {
-            let left_operand: i32 = parts[0].parse().unwrap();
-            let operator = parts[1];
-            let right_operand: i32 = parts[2].parse().unwrap();
-            
-            let result = match operator {
-                "+" => left_operand + right_operand,
-                "-" => left_operand - right_operand,
-                _ => {
-                    continue;
-                }
-            };
-                        *eq = result.to_string();
+    for s in v.iter_mut() {
+        let mut rrrr = 0;
+        let mut ssss = ' ';
+
+        for (i, c) in s.chars().enumerate() {
+            if c == '+' || c == '-' {
+                rrrr = i;
+                ssss = c;
+                break;
+            }
         }
+
+        let left: i32 = s[..rrrr].parse().unwrap();
+        let right: i32 = s[rrrr + 1..].parse().unwrap();
+
+        let res = if ssss == '+' {
+            left + right
+        } else {
+            left - right
+        };
+
+        *s = res.to_string();
     }
 }
