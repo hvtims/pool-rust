@@ -12,16 +12,27 @@ pub fn capitalize_first(input: &str) -> String {
 }
 
 pub fn title_case(input: &str) -> String {
-    let splited : Vec<_>= input.split_whitespace().collect();
-    let mut newstr = String::new();
-    for ( i , v) in splited.clone().into_iter().enumerate(){
-       if i != splited.len(){
-           newstr+= &capitalize_first(v);
-           newstr += " "
-       }
+    let mut result = String::new();
+    let mut word_start = true;
+    for c in input.chars() {
+        if c.is_whitespace() {
+            result.push(c);
+            word_start = true;
+        } else {
+            if word_start {
+                for up in c.to_uppercase() {
+                    result.push(up);
+                }
+                word_start = false;
+            } else {
+                for low in c.to_lowercase() {
+                    result.push(low);
+                }
+            }
+        }
     }
-    newstr.pop();
-    return newstr.to_string()
+
+    result
 }
 
 pub fn change_case(input: &str) -> String {
