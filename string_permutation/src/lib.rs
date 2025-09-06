@@ -5,23 +5,15 @@ pub fn is_permutation(s1: &str, s2: &str) -> bool {
         return false;
     }
 
-    let mut hashihashi: HashMap<char, usize> = HashMap::new();
-    let mut count = 0;
+    let mut count1 = HashMap::new();
+    let mut count2 = HashMap::new();
 
-    for i in s1.chars() {
-        for k in s2.chars() {
-            if i == k {
-                let entry = hashihashi.entry(k).or_insert(0);
-                if *entry > 0 {
-                    continue;
-                } else {
-                    *entry += 1; 
-                    count += 1;
-                    break;
-                }
-            }
-        }
+    for c in s1.chars() {
+        *count1.entry(c).or_insert(0) += 1;
+    }
+    for c in s2.chars() {
+        *count2.entry(c).or_insert(0) += 1;
     }
 
-    count == s1.chars().count()
+    count1 == count2
 }
