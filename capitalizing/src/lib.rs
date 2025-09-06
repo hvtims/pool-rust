@@ -12,7 +12,7 @@ pub fn capitalize_first(input: &str) -> String {
 }
 
 pub fn title_case(input: &str) -> String {
-    let splited : Vec<_>= input.split(" ").collect();
+    let splited : Vec<_>= input.split_whitespace().collect();
     let mut newstr = String::new();
     for ( i , v) in splited.clone().into_iter().enumerate(){
        if i != splited.len(){
