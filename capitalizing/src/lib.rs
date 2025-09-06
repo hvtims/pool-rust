@@ -20,10 +20,14 @@ pub fn title_case(input: &str) -> String {
            newstr += " "
        }
     }
+    newstr.pop();
     return newstr.to_string()
 }
 
 pub fn change_case(input: &str) -> String {
+    if input.len() == 0 {
+        return "".to_string();
+    }
     let waw : Vec<_> = input.chars().collect();
     let mut newstr = String::new();
     for i in waw{
