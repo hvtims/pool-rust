@@ -1,12 +1,11 @@
-pub fn sum(a: Vec<i32>) -> i32 {
-    let mut counter = 0 ; 
-    for i in a {
-        counter += i;
+pub fn sum(a: &[i32]) -> i32 {
+    let mut res: i32 = 0;
+    for ele in a {
+        res += ele;
     }
-    return counter ;
+    res
 }
 
 pub fn thirtytwo_tens() -> [i32; 32] {
-    let ok = [10;32];
-    return ok
+    [10; 32]
 }
