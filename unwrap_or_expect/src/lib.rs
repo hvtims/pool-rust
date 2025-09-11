@@ -6,21 +6,21 @@ pub enum Security {
     UnexpectedUrl,
 }
 
-pub fn fetch_data(server: Result<String, String>, security_level: Security) -> String {
+pub fn fetch_data(server: Result<&str, &str>, security_level: Security) -> String {
     match security_level {
-        Security::Unknown => server.unwrap(), 
-        Security::Message => server.expect("ERROR: program stops"),
+        Security::Unknown => server.unwrap().to_string(), 
+        Security::Message => server.expect("ERROR: program stops").to_string(),
         Security::Warning => match server {
-            Ok(url) => url,
+            Ok(url) => url.to_string(),
             Err(_) => "WARNING: check the server".to_string(),
         },
         Security::NotFound => match server {
-            Ok(url) => url,
-            Err(msg) => format!("Not found: {}", msg),
+            Ok(url) => url.to_string(),
+            Err(msg) => format!("Not found: {}", msg.to_string()),
         },
         Security::UnexpectedUrl => match server {
-            Ok(url) => panic!("{}", url),
-            Err(msg) => msg,
+            Ok(url) => panic!("{}", url.to_string()),
+            Err(msg) => msg.to_string(),
         },
     }
 }
