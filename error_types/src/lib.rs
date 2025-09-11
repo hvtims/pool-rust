@@ -1,20 +1,17 @@
-use chrono::Utc;
-
 #[derive(Debug, Eq, PartialEq)]
-pub struct FormError {
-    pub form_values: (String, String),
+pub struct FormError<'a> {
+    pub form_values: (&'a str, String),
     pub date: String,
-    pub err: String,
+    pub err: &'a str,
 }
 
-impl FormError {
-    pub fn new(field_name: &str, field_value: String, err: &str) -> Self {
-        let date = Utc::now().format("%Y-%m-%d %H:%M:%S").to_string();
-
+impl FormError<'_> {
+    pub fn new(field_name: &str, field_value: String, err: &str) -> FormError<'static> {
+        let date = chrono::Utc::now().format("%Y-%m-%d %H:%M:%S").to_string();
         FormError {
-            form_values: (field_name.to_string(), field_value),
+            form_values: (field_name.to_string().leak(), field_value),
             date,
-            err: err.to_string(),
+            err: err.to_string().leak(),
         }
     }
 }
@@ -30,13 +27,9 @@ impl Form {
         Self { name, password }
     }
 
-    pub fn validate(&self) -> Result<(), FormError> {
+    pub fn validate(&self) -> Result<(), FormError<'_>> {
         if self.name.is_empty() {
-            return Err(FormError::new(
-                "name",
-                self.name.clone(),
-                "Username is empty",
-            ));
+            return Err(FormError::new("name", self.name.clone(), "Username is empty"));
         }
 
         if self.password.len() < 8 {
@@ -47,15 +40,17 @@ impl Form {
             ));
         }
 
-        let has_alpha = self.password.chars().any(|c| c.is_ascii_alphabetic());
-        let has_numeric = self.password.chars().any(|c| c.is_ascii_digit());
-        let has_symbol = self.password.chars().any(|c| !c.is_ascii_alphanumeric());
+        let (has_alpha, has_numeric, has_symbol) = (
+            self.password.chars().any(|c| c.is_ascii_alphabetic()),
+            self.password.chars().any(|c| c.is_ascii_digit()),
+            self.password.chars().any(|c| !c.is_ascii_alphanumeric()),
+        );
 
         if !(has_alpha && has_numeric && has_symbol) {
             return Err(FormError::new(
                 "password",
                 self.password.clone(),
-                "Password should be a combination of ASCII letters, numbers, and symbols",
+                "Password should be a combination of ASCII numbers, letters and symbols",
             ));
         }
 
