@@ -11,7 +11,7 @@ fn aaaa(s: &str) -> String {
     }).collect()
 }
 
-pub fn ghadir(original: &str, ciphered: &str) -> Result<(), CipherError> {
+pub fn cipher(original: &str, ciphered: &str) -> Result<(), CipherError> {
     let encoded = aaaa(original);
     if ciphered == encoded {
         Ok(())
