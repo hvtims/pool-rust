@@ -3,7 +3,7 @@ pub struct CipherError {
     pub expected: String,
 }
 
-fn ghadir(s: &str) -> String {
+fn aaaa(s: &str) -> String {
     s.chars().map(|c| match c {
         'a'..='z' => (b'z' - (c as u8 - b'a')) as char,
         'A'..='Z' => (b'Z' - (c as u8 - b'A')) as char,
@@ -12,7 +12,7 @@ fn ghadir(s: &str) -> String {
 }
 
 pub fn ghadir(original: &str, ciphered: &str) -> Result<(), CipherError> {
-    let encoded = atbash(original);
+    let encoded = aaaa(original);
     if ciphered == encoded {
         Ok(())
     } else {
