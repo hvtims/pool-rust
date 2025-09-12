@@ -10,7 +10,7 @@ pub struct Mall {
     pub name: String,
     pub guards: HashMap<String, Guard>,
     pub floors: HashMap<String, Floor>,
-}
+}//
 
 impl Mall {
     pub fn new(
