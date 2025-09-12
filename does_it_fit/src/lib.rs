@@ -1,36 +1,38 @@
 pub mod areas_volumes;
-use areas_volumes as av;
+pub use areas_volumes::*;
 
 pub fn area_fit(
     (x, y): (usize, usize),
-    kind: areas_volumes::GeometricalShapes,
+    kind: GeometricalShapes,
     times: usize,
-    (a, b): (usize, usize),
+    (a, b): (usize, usize)
 ) -> bool {
-    let rectar = av::rectangle_area(x, y);
+    let area_area = rectangle_area(x, y);
     match kind {
-        av::GeometricalShapes::Square => av::square_area(a) * times <= rectar,
-        av::GeometricalShapes::Circle => (av::circle_area(a) as usize) * times <= rectar,
-        av::GeometricalShapes::Rectangle => av::rectangle_area(a, b) * times <= rectar,
-        av::GeometricalShapes::Triangle => (av::triangle_area(a, b) as usize) * times <= rectar,
+        GeometricalShapes::Square => square_area(a) * times <= area_area,
+        GeometricalShapes::Circle => (circle_area(a).ceil() as usize) * times <= area_area,
+        GeometricalShapes::Rectangle => rectangle_area(a, b) * times <= area_area,
+        GeometricalShapes::Triangle => (triangle_area(a, b).ceil() as usize) * times <= area_area,
     }
 }
 
 pub fn volume_fit(
     (x, y, z): (usize, usize, usize),
-    kind: areas_volumes::GeometricalVolumes,
+    kind: GeometricalVolumes,
     times: usize,
-    (a, b, c): (usize, usize, usize),
+    (a, b, c): (usize, usize, usize)
 ) -> bool {
-    let container_volume = av::parallelepiped_volume(x, y, z);
+    let container_volume = x * y * z;
     match kind {
-        av::GeometricalVolumes::Cube => av::cube_volume(a) * times <= container_volume,
-        av::GeometricalVolumes::Sphere => (av::sphere_volume(a) as usize) * times <= container_volume,
-        av::GeometricalVolumes::Cone => (av::cone_volume(a, b) as usize) * times <= container_volume,
-        av::GeometricalVolumes::TriangularPyramid => {
-            let base_area = av::triangle_area(a, b);
-            (av::triangular_pyramid_volume(base_area, c) as usize) * times <= container_volume
-        },
-        av::GeometricalVolumes::Parallelepiped => av::parallelepiped_volume(a, b, c) * times <= container_volume,
+        GeometricalVolumes::Cube => cube_volume(a) * times <= container_volume,
+        GeometricalVolumes::Sphere =>
+            (sphere_volume(a).ceil() as usize) * times <= container_volume,
+        GeometricalVolumes::Cone => (cone_volume(a, b).ceil() as usize) * times <= container_volume,
+        GeometricalVolumes::TriangularPyramid => {
+            (triangular_pyramid_volume(triangle_area(a, b), c).ceil() as usize) * times <=
+                container_volume
+        }
+        GeometricalVolumes::Parallelepiped =>
+            parallelepiped_volume(a, b, c) * times <= container_volume,
     }
 }

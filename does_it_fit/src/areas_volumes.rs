@@ -18,7 +18,7 @@ pub(crate) fn square_area(side: usize) -> usize {
 }
 
 pub(crate) fn triangle_area(base: usize, height: usize) -> f64 {
-    (base as f64 * height as f64) / 2.0
+    ((base as f64) * (height as f64)) / 2.0
 }
 
 pub(crate) fn circle_area(radius: usize) -> f64 {
@@ -38,7 +38,7 @@ pub(crate) fn sphere_volume(radius: usize) -> f64 {
 }
 
 pub(crate) fn triangular_pyramid_volume(base_area: f64, height: usize) -> f64 {
-    (base_area * height as f64) / 3.0
+    (base_area * (height as f64)) / 3.0
 }
 
 pub(crate) fn parallelepiped_volume(side_a: usize, side_b: usize, side_c: usize) -> usize {
@@ -46,5 +46,5 @@ pub(crate) fn parallelepiped_volume(side_a: usize, side_b: usize, side_c: usize)
 }
 
 pub(crate) fn cone_volume(base_radius: usize, height: usize) -> f64 {
-    (1.0 / 3.0) * std::f64::consts::PI * base_radius.pow(2) as f64 * height as f64
+    (1.0 / 3.0) * std::f64::consts::PI * (base_radius.pow(2) as f64) * (height as f64)
 }
