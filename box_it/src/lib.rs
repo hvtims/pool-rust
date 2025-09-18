@@ -9,7 +9,7 @@ pub fn parse_into_boxed(s: String) -> Vec<Box<u32>> {
                 res.push(Box::new((pl * 1000.0) as u32));
             }else{
                  let pl = i.parse::<f32>().unwrap(); 
-                res.push(Box::new((pl * 1000.0) as u32));
+                res.push(Box::new((pl) as u32));
             }
         }
         return res
